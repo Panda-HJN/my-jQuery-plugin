@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>简单轮播</title>
+		<link rel="stylesheet" type="text/css" href="//cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css" />
+		<script src="//cdn.staticfile.org/jquery/3.1.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			body,
+			ul,
+			li {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			
+			.clearfix:after {
+				content: "";
+				display: block;
+				clear: both;
+			}
+			
+			.slider-wrap {
+				overflow: hidden;
+				position: relative;
+				width: 400px;
+				height: 320px;
+			}
+			
+			.items-wrap {
+				position: relative;
+			}
+			
+			.slider-wrap>.items-wrap>li {
+				float: left;
+			}
+			
+			.slider-wrap>ul>li>a {
+				display: block;
+				width: 400px;
+				height: 320px;
+			}
+			
+			.slider-wrap>ul.items-wrap img {
+				width: 400px;
+				height: 320px;
+			}
+			
+			.slider-wrap>.slider-wrap-pre {
+				position: absolute;
+				width: 30px;
+				height: 30px;
+				margin-top: -10px;
+				font-size: 30px;
+				line-height: 30px;
+				color: #AAA;
+				left: 30px;
+				top: 50%;
+				opacity: 0.7;
+			}
+			
+			.slider-wrap> .slider-wrap-next {
+				position: absolute;
+				width: 30px;
+				height: 30px;
+				margin-top: -10px;
+				font-size: 30px;
+				line-height: 30px;
+				color: #ccc;
+				right: 30px;
+				top: 50%;
+				opacity: 0.7;
+			}
+			
+			.slider-wrap>.slider-wrap-pre:hover,
+			.slider-wrap>.slider-wrap-next:hover {
+				color: white;
+				opacity: 1;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="slider-wrap">
+			<ul class="items-wrap clearfix">
+				<li style="background: yellow;">
+					<a href=""><img src="1.jpg" alt="" /></a>
+				</li>
+				<li style="background: red;">
+					<a href=""><img src="2.jpg" alt="" /></a>
+				</li>
+				<li style="background: blueviolet;">
+					<a href=""><img src="3.jpg" alt="" /></a>
+				</li>
+				<li style="background: greenyellow;">
+					<a href=""><img src="4.jpg" alt="" /></a>
+				</li>
+			</ul>
+			<div class="slider-wrap-pre"><i class="fa fa-backward" aria-hidden="true"></i></div>
+			<div class="slider-wrap-next"><i class="fa fa-forward" aria-hidden="true"></i></div>
+		</div>
+		<script type="text/javascript">
+			function SimpleSlider($slider) {
+				this.$slider = $slider
+				this.$itemsCt = $(this.$slider).children(".items-wrap")
+				this.$items = this.$itemsCt.children()
+				this.ctWidth = this.$slider.width()
+				this.$pre = this.$slider.find(".slider-wrap-pre")
+				this.$next = this.$slider.find(".slider-wrap-next")
+				this.curIndex = 0
+				this.isLoad = false
+				this.init(this.$slider)
+			}
+			SimpleSlider.prototype.init = function($slider) {
+				console.log(this.$slider)
+				this.$items.last().clone().prependTo(this.$itemsCt)
+				this.$items.first().clone().appendTo(this.$itemsCt)
+				this.$items = this.$itemsCt.children()
+				console.log(this.$items)
+				this.itemsCount = this.$items.length
+				console.log(this.$itemsCt)
+				this.$itemsCt.css({
+					width: this.itemsCount * this.ctWidth,
+					left: 0 - this.ctWidth
+				})
+				this.bind(this.$slider)
+			}
+			SimpleSlider.prototype.bind = function($slider) {
+				var _this = this
+				this.$pre.on("click", function() {
+					console.log(_this.curIndex - 1)
+					_this.play(_this.curIndex - 1)
+
+				})
+				this.$next.on("click", function() {
+					console.log(_this.curIndex + 1)
+					_this.play(_this.curIndex + 1)
+				})
+			}
+			SimpleSlider.prototype.play = function(index) {
+				var count = this.itemsCount
+				var _this = this
+				var $wrap = this.$itemsCt
+				if(this.isLoad = true) {
+					console.log("true")
+					return
+				}
+				this.isLoad = true
+				var _this = this
+				if(index < 0) {
+					this.isLoad = false
+					$wrap.animate({
+						left: 0
+					}, 400, function() {
+						$wrap.css({
+							left: 0 - (count - 2
+							}) * _this.ctWidth)
+						this.isLoad = false
+						this.curIndex = count - 2
+						return
+					})
+				} else(index === (count - 2)) {
+					this.isLoad = false
+					this.play(0)
+				} else(index === (count - 3)) {
+					$wrap.animate({
+						left: 0 - count * this.ctWidth
+					}, 400, function() {
+						$wrap.css("left": 0)
+						this.isLoad = false
+					})
+				} else(index === (0)) {
+					$wrap.animate({
+						left: 0 - (count - 1) * this.ctWidth
+					}, 400, function() {
+						$wrap.css("left": -this.ctWidth)
+						this.isLoad = false
+					})
+				} else() {
+
+				}
+
+				//				this.$itemsCt.animate({
+				//					marginLeft:index * _this.ctWidth
+				//				},300,function(){				
+				//					if(index == (_this.itemsCount - 1)) {
+				//							_this.$itemsCt.css('margin-left', -width)
+				//							_this.curIndex = 1
+				//						} else if(index == 0) {
+				//							_this.$itemsCt.css('margin-left', -width * (_this.itemsCount - 2))
+				//							_this.curIndex = (_this.itemsCount - 2)
+				//						} else {
+				//							_this.curIndex = index
+				//						}
+				//						isLoad = false
+				//						return
+				//				})
+			}
+			$(function() {
+				var s1 = new SimpleSlider($(".slider-wrap"))
+			})
+		</script>
+	</body>
+
+</html>

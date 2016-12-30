@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>simple-slider</title>
+		<link rel="stylesheet" type="text/css" href="//cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css" />
+		<script src="//cdn.staticfile.org/jquery/3.1.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			/*全局样式*/
+			
+			body,
+			ul,
+			li {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			
+			.clearfix:after {
+				content: "";
+				display: block;
+				clear: both;
+			}
+			/*组件样式*/
+			
+			.slider-wrap {
+				overflow: hidden;
+				position: relative;
+				width: 400px;
+				height: 320px;
+			}
+			
+			.items-wrap {
+				position: relative;
+			}
+			
+			.items-wrap>li {
+				float: left;
+			}
+			
+			.items-wrap>li>a {
+				display: block;
+				width: 400px;
+				height: 320px;
+			}
+			
+			.items-wrap a>img {
+				width: 400px;
+				height: 320px;
+			}
+			/*		左右按钮样式*/
+			
+			.slider-wrap>.slider-wrap-pre {
+				position: absolute;
+				width: 40px;
+				height: 40px;
+				margin-top: -20px;
+				font-size: 40px;
+				line-height: 40px;
+				color: #AAA;
+				left: 20px;
+				top: 50%;
+				opacity: 0.7;
+			}
+			
+			.slider-wrap> .slider-wrap-next {
+				position: absolute;
+				width: 40px;
+				height: 40px;
+				margin-top: -20px;
+				font-size: 40px;
+				line-height: 40px;
+				color: #ccc;
+				right: 20px;
+				top: 50%;
+				opacity: 0.7;
+			}
+			
+			.slider-wrap>.slider-wrap-pre:hover,
+			.slider-wrap>.slider-wrap-next:hover {
+				color: white;
+				opacity: 1;
+			}
+		</style>
+	</head>
+
+	<body>
+		<p>jQuery 常见错误:</p>
+		<p>分清返回的是DOM对象还是jQuery对象</p>
+		<p>在oop写法中,注意调用实例的属性时,有没有落下this</p>
+		<p>一些回调函数中无法用this 取到this</p>
+		<div class="slider-wrap">
+			<ul class="items-wrap clearfix">
+				<li style="background: yellow;">
+					<a href=""><img src="1.jpg" alt="" /></a>
+				</li>
+				<li style="background: red;">
+					<a href=""><img src="2.jpg" alt="" /></a>
+				</li>
+				<li style="background: blueviolet;">
+					<a href=""><img src="3.jpg" alt="" /></a>
+				</li>
+				<li style="background: greenyellow;">
+					<a href=""><img src="4.jpg" alt="" /></a>
+				</li>
+			</ul>
+			<div class="slider-wrap-pre"><i class="fa fa-backward" aria-hidden="true"></i></div>
+			<div class="slider-wrap-next"><i class="fa fa-forward" aria-hidden="true"></i></div>
+		</div>
+		<div class="slider-wrap">
+			<ul class="items-wrap clearfix">
+				<li style="background: yellow;">
+					<a href=""><img src="1.jpg" alt="" /></a>
+				</li>
+				<li style="background: red;">
+					<a href=""><img src="2.jpg" alt="" /></a>
+				</li>
+				<li style="background: blueviolet;">
+					<a href=""><img src="3.jpg" alt="" /></a>
+				</li>
+				<li style="background: greenyellow;">
+					<a href=""><img src="4.jpg" alt="" /></a>
+				</li>
+			</ul>
+			<div class="slider-wrap-pre"><i class="fa fa-backward" aria-hidden="true"></i></div>
+			<div class="slider-wrap-next"><i class="fa fa-forward" aria-hidden="true"></i></div>
+		</div>
+	<script src="simple_slider.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			
+			$(".slider-wrap").each(function() {
+				new SimpleSlider($(this))
+
+			})
+		</script>
+	</body>
+
+</html>
